@@ -1,0 +1,30 @@
+{
+  "name": "liana-app",
+  "version": "0.0.1",
+  "author": "Corno",
+  "license": "Apache-2.0",
+  "description": "An app for the Liana schema modeling language",
+  "type": "module",
+  "exports": {
+    "./*": {
+      "types": "./dist/*.d.ts",
+      "default": "./dist/*.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "dependencies": {
+    "lib": "file:../lib",
+    "pareto-host-nodejs": "^0.2.0",
+    "pareto-resource-filesystem-unrestricted": "^0.1.0",
+    "pareto-resource-stream": "^0.1.0"
+  },
+  "bin": {
+    "compile_schemas": "./dist/bin/compile_temp_schemas.js"
+  },
+  "bundleDependencies": [
+    "lib",
+    "pareto-host-nodejs"
+  ]
+}
