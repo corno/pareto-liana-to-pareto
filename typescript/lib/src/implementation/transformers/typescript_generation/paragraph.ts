@@ -1,7 +1,7 @@
 import * as p_ from 'pareto-core/implementation/transformer'
 
 import type * as s_in from "../../../interface/schemas/typescript_generation.js"
-import type * as s_out from "pareto-fountain-pen/interface/schemas/paragraph"
+import type * as s_out from "pareto-fountain-pen/modules/paragraph/schemas/paragraph"
 namespace declarations {
     export type Error = p_.Transformer<
         s_in.Error,
@@ -15,7 +15,7 @@ import * as ser_unresolved_document_deserialization from "liana-core/modules/unr
 import * as ser_read_file from "pareto-filesystem-unrestricted-api/modules/unrestricted/implementation/serializers/read_file"
 
 //shorthands
-import * as sh from "pareto-fountain-pen/shorthands/paragraph/deprecated"
+import * as sh from "pareto-fountain-pen/modules/paragraph/shorthands/deprecated"
 
 export const Error: declarations.Error = ($) => {
     return p_.from.state($).decide(
