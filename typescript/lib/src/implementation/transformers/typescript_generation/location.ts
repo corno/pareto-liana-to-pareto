@@ -2,7 +2,7 @@ import type * as p_di from 'pareto-core/interface/schema'
 import * as p_ from 'pareto-core/implementation/transformer'
 
 //schemas
-import type * as s_location from "../../../schemas/location.js"
+import type * as s_location from "astn-core/modules/deserialization/schemas/location/schema"
 
 namespace s_out {
 
@@ -19,7 +19,7 @@ namespace declarations {
 
 
 //dependencies
-import * as t_deserialize_to_location from "liana-core/modules/unresolved_document_deserialization/implementation/transformers/unresolved_document_deserialization/location"
+import * as t_deserialize_to_location from "liana-core/modules/unresolved_document_deserialization/schemas/unresolved_document_deserialization/transformers/location"
 
 
 

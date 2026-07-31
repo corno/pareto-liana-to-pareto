@@ -5,7 +5,7 @@ import p_unreachable_code_path from 'pareto-core/implementation/transformer/spec
 
 
 //schemas
-import type * as s_in from "pareto-liana/modules/liana.generated/modules/schema/schemas/resolved"
+import type * as s_in from "pareto-liana/modules/schema.generated/schemas/resolved/schema"
 
 import type * as s_out from "../../../schemas/pareto_implementation_resolved.js"
 namespace declarations {

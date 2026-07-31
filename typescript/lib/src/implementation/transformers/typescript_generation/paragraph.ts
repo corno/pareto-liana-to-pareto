@@ -11,8 +11,8 @@ namespace declarations {
 
 //dependencies
 import * as ser_resolving from "liana-core/modules/resolved_document_deserialization/schemas/resolving/serializers"
-import * as ser_unresolved_document_deserialization from "liana-core/modules/unresolved_document_deserialization/implementation/serializers/unresolved_document_deserialization"
-import * as ser_read_file from "pareto-filesystem-unrestricted-api/modules/unrestricted/implementation/serializers/read_file"
+import * as ser_unresolved_document_deserialization from "liana-core/modules/unresolved_document_deserialization/schemas/unresolved_document_deserialization/serializers"
+import * as ser_read_file from "pareto-filesystem-unrestricted-api/modules/unrestricted/schemas/read_file/serializers"
 
 //shorthands
 import * as sh from "pareto-fountain-pen/modules/paragraph/schemas/paragraph/shorthands/deprecated"

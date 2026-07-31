@@ -4,7 +4,7 @@ import type * as p_di from 'pareto-core/interface/schema'
 import p_change_context from 'pareto-core/implementation/refiner/specials/change_context'
 
 //schemas
-import type * as s_in from "pareto-liana/modules/liana.generated/modules/schema/schemas/resolved"
+import type * as s_in from "pareto-liana/modules/schema.generated/schemas/resolved/schema"
 
 import type * as s_out from "../../../schemas/pareto_implementation_resolved.js"
 namespace declarations {
