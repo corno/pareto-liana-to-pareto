@@ -1,1 +1,1 @@
-export * from "pareto-filesystem-unrestricted-api/modules/unrestricted/interface/schemas/write_file"
+export * from "pareto-filesystem-unrestricted-api/modules/unrestricted/schemas/write_file/schema"

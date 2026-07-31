@@ -5,7 +5,7 @@ import p_variables from 'pareto-core/implementation/refiner/specials/variables'
 
 //schemas
 import type * as s_in from "pareto-liana/modules/liana.generated/modules/schema/schemas/resolved"
-import type * as s_out from "../../../interface/schemas/pareto_interface_resolved.js" //FIXME; this should be unresolved
+import type * as s_out from "../../../schemas/pareto_interface_resolved.js" //FIXME; this should be unresolved
 
 namespace declarations {
 

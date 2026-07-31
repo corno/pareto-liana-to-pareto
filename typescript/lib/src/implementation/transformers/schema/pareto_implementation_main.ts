@@ -5,7 +5,7 @@ import type * as p_di from 'pareto-core/interface/schema'
 //schemas
 import type * as s_in from "pareto-liana/modules/liana.generated/modules/schema/schemas/resolved"
 
-import type * as s_out from "../../../interface/schemas/pareto_implementation_resolved.js"
+import type * as s_out from "../../../schemas/pareto_implementation_resolved.js"
 namespace declarations {
 
     export type Schema_Tree = p_i.Transformer_With_Parameter<

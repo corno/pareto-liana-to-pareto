@@ -2,14 +2,14 @@ import type * as p_di from 'pareto-core/interface/schema'
 import * as p_ from 'pareto-core/implementation/transformer'
 
 //schemas
-import type * as s_location from "../../../interface/schemas/location.js"
+import type * as s_location from "../../../schemas/location.js"
 
 namespace s_out {
 
     export type Possible_Range = p_di.Optional_Value<s_location.Range>
 
 }
-import type * as s_in from "../../../interface/schemas/typescript_generation.js"
+import type * as s_in from "../../../schemas/typescript_generation.js"
 namespace declarations {
     export type Error = p_.Transformer<
         s_in.Error,

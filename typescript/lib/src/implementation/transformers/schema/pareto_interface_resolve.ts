@@ -4,7 +4,7 @@ import type * as p_i from 'pareto-core/interface/transformer'
 //schemas
 import type * as s_in from "pareto-liana/modules/liana.generated/modules/schema/schemas/resolved"
 
-import type * as s_out from "../../../interface/schemas/pareto_interface_resolved.js"
+import type * as s_out from "../../../schemas/pareto_interface_resolved.js"
 namespace declarations {
 
     export type Resolver_Signatures = p_i.Transformer<

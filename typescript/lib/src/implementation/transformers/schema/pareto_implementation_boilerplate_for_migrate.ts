@@ -6,7 +6,7 @@ import p_change_context from 'pareto-core/implementation/refiner/specials/change
 //schemas
 import type * as s_in from "pareto-liana/modules/liana.generated/modules/schema/schemas/resolved"
 
-import type * as s_out from "../../../interface/schemas/pareto_implementation_resolved.js"
+import type * as s_out from "../../../schemas/pareto_implementation_resolved.js"
 namespace declarations {
 
     export type Schema = p_i.Transformer_With_Parameter<

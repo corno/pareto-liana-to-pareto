@@ -1,7 +1,7 @@
 import * as p_ from 'pareto-core/implementation/transformer'
 // import type * as s_parameters from "../../../interface"
-import type * as s_in from "../../../interface/schemas/temp_schema_compilation.js"
-import type * as s_out from "pareto-fountain-pen/modules/paragraph/schemas/paragraph"
+import type * as s_in from "../../../schemas/temp_schema_compilation.js"
+import type * as s_out from "pareto-fountain-pen/modules/paragraph/schemas/paragraph/schema"
 import type * as s_parameters_clr from "astn-core/modules/deserialization/schemas/location_serialization"
 
 namespace declarations {
@@ -16,11 +16,11 @@ namespace declarations {
 }
 
 //dependencies
-import * as ser_resolving from "liana-core/modules/resolved_document_deserialization/implementation/serializers/resolving"
-import * as ser_location from "astn-core/modules/deserialization/implementation/serializers/location"
+import * as ser_resolving from "liana-core/modules/resolved_document_deserialization/schemas/resolving/serializers"
+import * as ser_location from "astn-core/modules/deserialization/schemas/location/serializers"
 
 //shorthands
-import * as sh from "pareto-fountain-pen/modules/paragraph/shorthands/deprecated"
+import * as sh from "pareto-fountain-pen/modules/paragraph/schemas/paragraph/shorthands/deprecated"
 
 export const Error: declarations.Error = ($, $p) => sh.ph.composed([
     sh.ph.text("error in package '"),
