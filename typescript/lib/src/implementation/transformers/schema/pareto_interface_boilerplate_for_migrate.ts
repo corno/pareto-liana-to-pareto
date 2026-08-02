@@ -4,7 +4,7 @@ import type * as p_i from 'pareto-core/interface/transformer'
 //schemas
 import type * as s_in from "pareto-liana/modules/schema.generated/schemas/resolved/schema"
 
-import type * as s_out from "../../../schemas/pareto_interface_resolved.js"
+import type * as s_out from "pareto/modules/interface_old/schemas/resolved/schema"
 namespace declarations {
 
     export type Schema = p_i.Transformer_With_Parameter<
@@ -18,7 +18,7 @@ namespace declarations {
 }
 
 //shorthands
-import * as sh from "pareto/shorthands/interface/target"
+import * as sh from "pareto/modules/interface_old/schemas/resolved/shorthands/target"
 
 
 export const Schema: declarations.Schema = ($, $p) => sh.m.package_functions(

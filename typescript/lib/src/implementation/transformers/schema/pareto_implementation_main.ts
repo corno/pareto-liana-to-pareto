@@ -5,7 +5,7 @@ import type * as p_di from 'pareto-core/interface/schema'
 //schemas
 import type * as s_in from "pareto-liana/modules/schema.generated/schemas/resolved/schema"
 
-import type * as s_out from "../../../schemas/pareto_implementation_resolved.js"
+import type * as s_out from "pareto/modules/implementation_old/schemas/resolved/schema"
 namespace declarations {
 
     export type Schema_Tree = p_i.Transformer_With_Parameter<
@@ -29,7 +29,7 @@ namespace declarations {
 }
 
 //shorthands
-import * as sh from "pareto/shorthands/implementation/target"
+import * as sh from "pareto/modules/implementation_old/schemas/resolved/shorthands/target"
 
 //dependencies
 import * as t_boilerplate_for_migrate from "./pareto_implementation_boilerplate_for_migrate.js"

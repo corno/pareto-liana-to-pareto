@@ -1,8 +1,8 @@
 
-import type * as s_resolve from "./resolving.js"
-import type * as s_read_file from "./fs_unrestricted_read_file.js"
-import type * as s_deserialize from "./unresolved_document_deserialization.js"
-import type * as s_path from "./fs_unrestricted_path.js"
+import type * as s_resolve from "liana-core/modules/resolved_document_deserialization/schemas/resolving/schema"
+import type * as s_read_file from "pareto-filesystem-unrestricted-api/modules/unrestricted/schemas/read_file/schema"
+import type * as s_deserialize from "liana-core/modules/unresolved_document_deserialization/schemas/unresolved_document_deserialization/schema"
+import type * as s_path from "pareto-filesystem-unrestricted-api/modules/unrestricted/schemas/path/schema"
 
 
 export type Error =

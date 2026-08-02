@@ -5,7 +5,7 @@ import p_variables from 'pareto-core/implementation/refiner/specials/variables'
 
 //schemas
 import type * as s_in from "pareto-liana/modules/schema.generated/schemas/resolved/schema"
-import type * as s_out from "../../../schemas/pareto_interface_resolved.js" //FIXME; this should be unresolved
+import type * as s_out from "pareto/modules/interface_old/schemas/resolved/schema" //FIXME; this should be unresolved
 
 namespace declarations {
 
@@ -59,7 +59,7 @@ namespace declarations {
 }
 
 //dependencies
-import * as sh from "pareto/shorthands/interface/target"
+import * as sh from "pareto/modules/interface_old/schemas/resolved/shorthands/target"
 
 const location = sh.t.component_imported(
     "location",
