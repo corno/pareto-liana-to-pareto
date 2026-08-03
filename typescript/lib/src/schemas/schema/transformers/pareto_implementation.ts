@@ -2,7 +2,7 @@ import * as p_ from 'pareto-core/implementation/transformer'
 import type * as p_i from 'pareto-core/interface/transformer'
 
 //schemas
-import type * as s_in from "pareto-liana/modules/schema.generated/schemas/resolved/schema"
+import type * as s_in from "../schema.js"
 
 import type * as s_out from "pareto/modules/implementation_old/schemas/resolved/schema"
 namespace declarations {

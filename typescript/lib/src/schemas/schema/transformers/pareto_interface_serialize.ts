@@ -2,7 +2,7 @@ import * as p_ from 'pareto-core/implementation/transformer'
 import type * as p_i from 'pareto-core/interface/transformer'
 
 //schemas
-import type * as s_in from "pareto-liana/modules/schema.generated/schemas/resolved/schema"
+import type * as s_in from "../schema.js"
 
 import type * as s_out from "pareto/modules/interface_old/schemas/resolved/schema"
 namespace declarations {
@@ -14,6 +14,7 @@ namespace declarations {
             'constrained': boolean
         }
     >
+
 }
 
 //shorthands
@@ -22,50 +23,40 @@ import * as sh from "pareto/modules/interface_old/schemas/resolved/shorthands/ta
 
 export const Schema: declarations.Schema = ($, $p) => {
     return sh.m.package_functions(
+
         p_.literal.dictionary({
-            "generic": sh.import_.external(
-                "liana-core",
-                p_.literal.list([
-                    "dist",
-                    "interface",
-                    "to be generated",
-                    "unmarshall",
-                ]),
-            ),
-            "out": sh.import_.ancestor(
+            "in": sh.import_.ancestor(
                 $p.constrained ? 3 : 2,
                 "data",
                 $p.constrained
                     ? p_.literal.list([
-                        "unresolved",
+                        "resolved",
                     ])
                     : p_.literal.list([]),
             ),
-            "in": sh.import_.external(
-                "astn-core",
+            "out": sh.import_.external(
+                "pareto-fountain-pen",
                 p_.literal.list([
                     "dist",
                     "interface",
                     "generated",
                     "liana",
                     "schemas",
-                    "parse tree",
+                    "prose",
                     "data",
                 ]),
             ),
         }),
         p_.from.dictionary($.modules).map(
-            ($, id) => sh.type.refiner(
+            ($, id) => sh.type.transformer(
                 sh.t.component_imported(
                     "in",
-                    "Value",
+                    id,
                 ),
                 sh.t.component_imported(
                     "out",
-                    id,
+                    "Paragraph",
                 ),
-                sh.t.component_imported("generic", "Error"),
-                null,
                 null,
             )),
     )

@@ -3,17 +3,17 @@ import * as p_temp from 'pareto-core/implementation/transformer'
 import p_iterate from 'pareto-core/implementation/refiner/specials/iterate'
 
 //interface dependencies
-import type * as command_interfaces_pareto_application_api from "pareto-application-api/interface/commands"
-import type * as command_interfaces_pareto_filesystem_unrestricted_api from "pareto-filesystem-unrestricted-api/modules/unrestricted/interface/commands"
-import type * as command_interfaces_pareto_stream_api from "pareto-stream-api/interface/commands"
-import type * as query_interfaces_pareto_filesystem_unrestricted_api from "pareto-filesystem-unrestricted-api/modules/unrestricted/interface/queries"
+import type * as command_interfaces_pareto_application_api from "pareto-application-api/commands/interfaces"
+import type * as command_interfaces_pareto_filesystem_unrestricted_api from "pareto-filesystem-unrestricted-api/modules/unrestricted/commands/interfaces"
+import type * as command_interfaces_pareto_stream_api from "pareto-stream-api/commands/interfaces"
+import type * as query_interfaces_pareto_filesystem_unrestricted_api from "pareto-filesystem-unrestricted-api/modules/unrestricted/queries/interfaces"
 
 // //schemas
-import type * as s_main from "pareto-application-api/interface/schemas/main"
-import type * as s_resource from "../../interface/schemas/typescript_generation.js"
-import type * as s_path from "pareto-filesystem-unrestricted-api/modules/unrestricted/interface/schemas/path"
+import type * as s_main from "pareto-application-api/schemas/main/schema"
+import type * as s_resource from "../../schemas/typescript_generation/schema.js"
+import type * as s_path from "pareto-filesystem-unrestricted-api/modules/unrestricted/schemas/path/schema"
 
-import type * as s_generate_typescript_cli from "../../interface/schemas/typescript_generation_from_the_command_line.js"
+import type * as s_generate_typescript_cli from "../../schemas/typescript_generation_from_the_command_line/schema.js"
 
 type Res = {
     'source': s_path.Node_Path
@@ -22,13 +22,13 @@ type Res = {
 
 //dependencies
 import * as c_generate_typescript from "./generate_typescript.js"
-import * as t_generate_typescript_to_serialized from "../transformers/generate_typescript/serialized.js"
-import * as ser_path from "pareto-filesystem-unrestricted-api/modules/unrestricted/implementation/serializers/path"
-import * as deser_path from "pareto-filesystem-unrestricted-api/modules/unrestricted/implementation/deserializers/path"
-import * as t_paragraph_to_serialized_paragraph from "pareto-fountain-pen/_implementation/transformers/paragraph/serialized"
+import * as t_generate_typescript_to_serialized from "../../schemas/typescript_generation/transformers/serialized.js"
+import * as ser_path from "pareto-filesystem-unrestricted-api/modules/unrestricted/schemas/path/serializers"
+import * as deser_path from "pareto-filesystem-unrestricted-api/modules/unrestricted/schemas/path/deserializers"
+import * as t_paragraph_to_serialized_paragraph from "pareto-fountain-pen/modules/paragraph/schemas/paragraph/transformers/serialized"
 
 // //shorthands
-import * as sh from "pareto-fountain-pen/shorthands/paragraph/deprecated"
+import * as sh from "pareto-fountain-pen/modules/paragraph/schemas/paragraph/shorthands/deprecated"
 
 export const $$: p_.Command_Implementation<
     command_interfaces_pareto_application_api.main,

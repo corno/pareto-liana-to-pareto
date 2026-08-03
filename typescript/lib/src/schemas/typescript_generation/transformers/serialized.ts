@@ -1,6 +1,6 @@
 import * as p_ from 'pareto-core/implementation/transformer'
 
-import * as s_in from "../../../schemas/typescript_generation.js"
+import * as s_in from "../schema.js"
 import * as s_out from "pareto-fountain-pen/modules/paragraph/schemas/serialized/schema"
 
 //dependencies

@@ -6,7 +6,7 @@ import * as p_h from 'pareto-core-application/index'
 import * as rs_filesystem_unrestricted from "pareto-resource-filesystem-unrestricted/index"
 import * as rs_stream from "pareto-resource-stream/index"
 
-import { $$ as c_command } from "lib/implementation/commands/generate_typescript_cli"
+import { $$ as c_command } from "lib/commands/implementations/generate_typescript_cli"
 
 p_h.run_main_command(
     () => {

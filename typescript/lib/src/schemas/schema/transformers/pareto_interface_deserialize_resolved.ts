@@ -2,9 +2,9 @@ import * as p_ from 'pareto-core/implementation/transformer'
 import type * as p_i from 'pareto-core/interface/transformer'
 
 //schemas
-import type * as s_in from "pareto-liana/modules/schema.generated/schemas/resolved/schema"
-import type * as s_out from "pareto/modules/interface_old/schemas/resolved/schema"
+import type * as s_in from "../schema.js"
 
+import type * as s_out from "pareto/modules/interface_old/schemas/resolved/schema"
 namespace declarations {
 
     export type Schema = p_i.Transformer_With_Parameter<
@@ -31,18 +31,14 @@ export const Schema: declarations.Schema = ($, $p) => sh.m.package_functions(
                 "to be generated",
                 "deserialize",
             ]),
-
         ),
         "in": sh.import_.external(
             "pareto-fountain-pen",
             p_.literal.list([
                 "dist",
                 "interface",
-                "generated",
-                "liana",
-                "schemas",
+                "to be generated",
                 "list of characters",
-                "data",
             ]),
         ),
         "out": sh.import_.ancestor(
@@ -52,7 +48,7 @@ export const Schema: declarations.Schema = ($, $p) => sh.m.package_functions(
             "data",
             $p.constrained
                 ? p_.literal.list([
-                    "unresolved",
+                    "resolved",
                 ])
                 : p_.literal.list([]),
         ),
@@ -67,7 +63,10 @@ export const Schema: declarations.Schema = ($, $p) => sh.m.package_functions(
                 "out",
                 id,
             ),
-            sh.t.component_imported("generic", "Error"),
+            sh.t.component_imported(
+                "generic",
+                "Error",
+            ),
             null,
             p_.literal.dictionary({
                 "tab size": sh.t.natural(),

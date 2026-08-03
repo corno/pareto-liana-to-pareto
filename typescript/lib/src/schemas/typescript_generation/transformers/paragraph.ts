@@ -1,6 +1,6 @@
 import * as p_ from 'pareto-core/implementation/transformer'
 
-import type * as s_in from "../../../schemas/typescript_generation.js"
+import type * as s_in from "../schema.js"
 import type * as s_out from "pareto-fountain-pen/modules/paragraph/schemas/paragraph/schema"
 namespace declarations {
     export type Error = p_.Transformer<

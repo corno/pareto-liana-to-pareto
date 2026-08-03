@@ -9,7 +9,7 @@ namespace s_out {
     export type Possible_Range = p_di.Optional_Value<s_location.Range>
 
 }
-import type * as s_in from "../../../schemas/typescript_generation.js"
+import type * as s_in from "../schema.js"
 namespace declarations {
     export type Error = p_.Transformer<
         s_in.Error,

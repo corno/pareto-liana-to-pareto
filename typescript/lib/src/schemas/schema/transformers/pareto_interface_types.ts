@@ -4,7 +4,7 @@ import p_unreachable_code_path from 'pareto-core/implementation/transformer/spec
 import p_variables from 'pareto-core/implementation/refiner/specials/variables'
 
 //schemas
-import type * as s_in from "pareto-liana/modules/schema.generated/schemas/resolved/schema"
+import type * as s_in from "../schema.js"
 import type * as s_out from "pareto/modules/interface_old/schemas/resolved/schema" //FIXME; this should be unresolved
 
 namespace declarations {
