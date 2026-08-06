@@ -17,7 +17,7 @@ import * as r_schema from "pareto-liana/modules/schema.generated/schemas/resolve
 import * as r_unresolved_schema_from_loc from "pareto-liana/modules/schema.generated/schemas/unresolved/refiners/list_of_characters"
 import * as t_liana_to_pareto_implementation from "../../schemas/schema/transformers/pareto_implementation.js"
 import * as t_liana_to_pareto_interface from "../../schemas/schema/transformers/pareto_interface.js"
-import * as t_pareto_implementation_to_typescript_directory from "pareto/modules/implementation_old/schemas/resolved/transformers/to_be_written_directory_content"
+import * as t_pareto_implementation_to_typescript_directory from "pareto/modules/implementation_old/schemas/resolved/transformers/typescript_project"
 import * as t_pareto_interface_to_typescript_directory from "pareto/modules/interface_old/schemas/resolved/transformers/to_be_written_directory_content"
 import * as t_path_to_path from "pareto-filesystem-unrestricted-api/modules/unrestricted/schemas/path/transformers/path"
 
