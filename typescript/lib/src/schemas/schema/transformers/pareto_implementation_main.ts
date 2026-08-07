@@ -60,18 +60,18 @@ export const Schema_Tree: declarations.Schema_Tree = ($, $p) => {
                                                 p_.literal.dictionary({
                                                     "transformers": sh.m.set(
                                                         p_.literal.dictionary({
-                                                            "astn sealed target": t_marshall.Schema(
+                                                            "astn_sealed_target.ts": t_marshall.Schema(
                                                                 schema,
                                                                 {
                                                                     'path': $p.path,
                                                                     'depth': 7,
                                                                 }
                                                             ),
-                                                            "boilerplate for migrate": t_boilerplate_for_migrate.Schema(schema, {
+                                                            "boilerplate_for_migrate.ts": t_boilerplate_for_migrate.Schema(schema, {
                                                                 'depth': 7,
                                                                 'path': $p.path,
                                                             }),
-                                                            "fountain pen": t_serialize.Schema(schema, {
+                                                            "paragraph.ts": t_serialize.Schema(schema, {
                                                                 'path': $p.path,
                                                                 'depth': 7,
                                                             })
@@ -105,11 +105,11 @@ export const Schema_Tree: declarations.Schema_Tree = ($, $p) => {
                                                     // }),
                                                     "refiners": sh.m.set(
                                                         p_.literal.dictionary({
-                                                            "astn parse tree": t_unmarshall.Schema(schema, {
+                                                            "astn_parse_tree.ts": t_unmarshall.Schema(schema, {
                                                                 'depth': 7,
                                                                 'path': $p.path,
                                                             }),
-                                                            "list of characters": t_deserialize.Schema(schema, {
+                                                            "list_of_characters.ts": t_deserialize.Schema(schema, {
                                                                 'depth': 7,
                                                                 'path': $p.path,
                                                             }),
@@ -123,18 +123,18 @@ export const Schema_Tree: declarations.Schema_Tree = ($, $p) => {
                                         p_.literal.dictionary({
                                             "transformers": sh.m.set(
                                                 p_.literal.dictionary({
-                                                    "astn sealed target": t_marshall.Schema(
+                                                    "astn_sealed_target.ts": t_marshall.Schema(
                                                         schema,
                                                         {
                                                             'path': $p.path,
                                                             'depth': 6,
                                                         }
                                                     ),
-                                                    "fountain pen": t_serialize.Schema(schema, {
+                                                    "paragraph.ts": t_serialize.Schema(schema, {
                                                         'path': $p.path,
                                                         'depth': 6,
                                                     }),
-                                                    "boilerplate for migrate": t_boilerplate_for_migrate.Schema(schema, {
+                                                    "boilerplate_for_migrate.ts": t_boilerplate_for_migrate.Schema(schema, {
                                                         'depth': 6,
                                                         'path': $p.path,
                                                     }),
@@ -142,11 +142,11 @@ export const Schema_Tree: declarations.Schema_Tree = ($, $p) => {
                                             ),
                                             "refiners": sh.m.set(
                                                 p_.literal.dictionary({
-                                                    "astn parse tree": t_unmarshall.Schema(schema, {
+                                                    "astn_parse_tree.ts": t_unmarshall.Schema(schema, {
                                                         'depth': 6,
                                                         'path': $p.path,
                                                     }),
-                                                    "list of characters": t_deserialize.Schema(schema, {
+                                                    "list_of_characters.ts": t_deserialize.Schema(schema, {
                                                         'depth': 6,
                                                         'path': $p.path,
                                                     }),

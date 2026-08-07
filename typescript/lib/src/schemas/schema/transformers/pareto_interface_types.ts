@@ -97,22 +97,22 @@ export const Schema: declarations.Schema = ($, $p) => {
                             ($) => {
                                 switch ($[0]) {
                                     case 'unconstrained': return p_.option($, ($) => p_.literal.list([
-                                        "data",
+                                        "data.js",
                                     ]))
                                     case 'constrained': return p_.option($, ($) => p_.from.state($p.type).decide(
                                         ($) => {
                                             switch ($[0]) {
                                                 case 'unconstrained': return p_.option($, ($) => p_.literal.list([
                                                     "data",
-                                                    "resolved",
+                                                    "resolved.js",
                                                 ]))
                                                 case 'unresolved': return p_.option($, ($) => p_.literal.list([
                                                     "data",
-                                                    "unresolved",
+                                                    "unresolved.js",
                                                 ]))
                                                 case 'resolved': return p_.option($, ($) => p_.literal.list([
                                                     "data",
-                                                    "resolved",
+                                                    "resolved.js",
                                                 ]))
                                                 default: return p_.exhaustive($[0])
                                             }

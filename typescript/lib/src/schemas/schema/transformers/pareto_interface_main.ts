@@ -56,12 +56,109 @@ export const Schema: declarations.Schema = ($, $p) => {
                 default: return p_.exhaustive($[0])
             }
         })
+    const signatures = $p['omit (de)serializer']
+        ? sh.m.set(
+            p_.literal.dictionary({})
+        )
+        : p_.from.state($.complexity).decide(
+            ($): s_out.Package_Set.D => {
+                switch ($[0]) {
+                    case 'constrained': return p_.option($, ($): s_out.Package_Set.D => sh.m.set(
+                        p_.literal.dictionary({
+                            "resolved": sh.m.set(
+                                p_.literal.dictionary({
+                                    "transformers": sh.m.set(
+                                        p_.literal.dictionary({
+                                            "astn_sealed_target.ts": t_marshall.Schema(
+                                                schema,
+                                                {
+                                                    'constrained': p_.literal.set("resolved"),
+                                                }
+                                            ),
+                                            "boilerplate_for_migrate.ts": t_boilerplate_for_migrate.Schema(schema, {
+                                                'constrained': true,
+                                            }),
+                                            "paragraph.ts": t_serialize.Schema(schema, {
+                                                'constrained': true,
+                                            })
+                                        }),
+                                    ),
+                                    "refiners": sh.m.set(
+                                        p_.literal.dictionary({
+                                            "unresolved": t_resolve.Resolver_Signatures($.signatures.signatures
+                                            ),
+                                            // "list of characters": t_deserialize_resolved.Schema(schema, {
+                                            //     'depth': 7,
+                                            //     'path': $p.path,
+                                            // }),
+                                        }),
+                                    )
+                                }),
+                            ),
+                            "unresolved": sh.m.set(
+                                p_.literal.dictionary({
+                                    "refiners": sh.m.set(
+                                        p_.literal.dictionary({
+                                            "astn_parse_tree.ts": t_unmarshall.Schema(schema, {
+                                                'constrained': true,
+                                            }),
+                                            "list_of_characters.ts": t_deserialize.Schema(schema, {
+                                                'constrained': true,
+                                            }),
+                                        }),
+                                        // "transformers": sh.m.set({
+                                        //     "astn sealed target": t_marshall.Schema(
+                                        //         schema,
+                                        //         {
+                                        //             'constrained': p_.literal.set("unresolved"),
+                                        //         }
+                                        //     ),
+                                        // }),
+                                    )
+                                }),
+                            )
+                        })
+                    ))
+                    case 'unconstrained': return p_.option($, ($) => sh.m.set(
+                        p_.literal.dictionary({
+                            "transformers": sh.m.set(
+                                p_.literal.dictionary({
+                                    "astn_sealed_target.ts": t_marshall.Schema(
+                                        schema,
+                                        {
+                                            'constrained': p_.literal.not_set(),
+                                        }
+                                    ),
+                                    "paragraph.ts": t_serialize.Schema(schema, {
+                                        'constrained': false,
+                                    }),
+                                    "boilerplate_for_migrate.ts": t_boilerplate_for_migrate.Schema(schema, {
+                                        'constrained': false,
+                                    }),
+                                }),
+                            ),
+                            "refiners": sh.m.set(
+                                p_.literal.dictionary({
+                                    "astn_parse_tree.ts": t_unmarshall.Schema(schema, {
+                                        'constrained': false,
+                                    }),
+                                    "list_of_characters.ts": t_deserialize.Schema(schema, {
+                                        'constrained': false,
+                                    }),
+                                }),
+                            )
+                        })
+                    ))
+                    default: return p_.exhaustive($[0])
+                }
+            }
+        )
     return sh.m.set(
-        p_.literal.dictionary({
+        constrainedx
+            ? p_.literal.dictionary({
 
-            "data": constrainedx
-                ? sh.m.set(p_.literal.dictionary({
-                    "resolved": t_types.Schema(
+                "data": sh.m.set(p_.literal.dictionary({
+                    "resolved.ts": t_types.Schema(
                         schema,
                         {
                             'imports': schema['schema imports'],
@@ -69,7 +166,7 @@ export const Schema: declarations.Schema = ($, $p) => {
                             'type': ['resolved', null],
                         }
                     ),
-                    "unresolved": t_types.Schema(
+                    "unresolved.ts": t_types.Schema(
                         schema,
                         {
                             'imports': schema['schema imports'],
@@ -77,8 +174,12 @@ export const Schema: declarations.Schema = ($, $p) => {
                             'type': ['unresolved', null],
                         }
                     ),
-                }))
-                : t_types.Schema(
+                })),
+                // "signatures": signatures
+            })
+            : p_.literal.dictionary({
+
+                "data.ts": t_types.Schema(
                     schema,
                     {
                         'imports': schema['schema imports'],
@@ -86,104 +187,8 @@ export const Schema: declarations.Schema = ($, $p) => {
                         'type': ['unconstrained', null],
                     }
                 ),
-            "signatures": $p['omit (de)serializer']
-                ? sh.m.set(
-                    p_.literal.dictionary({})
-                )
-                : p_.from.state($.complexity).decide(
-                    ($): s_out.Package_Set.D => {
-                        switch ($[0]) {
-                            case 'constrained': return p_.option($, ($): s_out.Package_Set.D => sh.m.set(
-                                p_.literal.dictionary({
-                                    "resolved": sh.m.set(
-                                        p_.literal.dictionary({
-                                            "transformers": sh.m.set(
-                                                p_.literal.dictionary({
-                                                    "astn sealed target": t_marshall.Schema(
-                                                        schema,
-                                                        {
-                                                            'constrained': p_.literal.set("resolved"),
-                                                        }
-                                                    ),
-                                                    "boilerplate for migrate": t_boilerplate_for_migrate.Schema(schema, {
-                                                        'constrained': true,
-                                                    }),
-                                                    "fountain pen": t_serialize.Schema(schema, {
-                                                        'constrained': true,
-                                                    })
-                                                }),
-                                            ),
-                                            "refiners": sh.m.set(
-                                                p_.literal.dictionary({
-                                                    "unresolved": t_resolve.Resolver_Signatures($.signatures.signatures
-                                                    ),
-                                                    // "list of characters": t_deserialize_resolved.Schema(schema, {
-                                                    //     'depth': 7,
-                                                    //     'path': $p.path,
-                                                    // }),
-                                                }),
-                                            )
-                                        }),
-                                    ),
-                                    "unresolved": sh.m.set(
-                                        p_.literal.dictionary({
-                                            "refiners": sh.m.set(
-                                                p_.literal.dictionary({
-                                                    "astn parse tree": t_unmarshall.Schema(schema, {
-                                                        'constrained': true,
-                                                    }),
-                                                    "list of characters": t_deserialize.Schema(schema, {
-                                                        'constrained': true,
-                                                    }),
-                                                }),
-                                                // "transformers": sh.m.set({
-                                                //     "astn sealed target": t_marshall.Schema(
-                                                //         schema,
-                                                //         {
-                                                //             'constrained': p_.literal.set("unresolved"),
-                                                //         }
-                                                //     ),
-                                                // }),
-                                            )
-                                        }),
-                                    )
-                                })
-                            ))
-                            case 'unconstrained': return p_.option($, ($) => sh.m.set(
-                                p_.literal.dictionary({
-                                    "transformers": sh.m.set(
-                                        p_.literal.dictionary({
-                                            "astn sealed target": t_marshall.Schema(
-                                                schema,
-                                                {
-                                                    'constrained': p_.literal.not_set(),
-                                                }
-                                            ),
-                                            "fountain pen": t_serialize.Schema(schema, {
-                                                'constrained': false,
-                                            }),
-                                            "boilerplate for migrate": t_boilerplate_for_migrate.Schema(schema, {
-                                                'constrained': false,
-                                            }),
-                                        }),
-                                    ),
-                                    "refiners": sh.m.set(
-                                        p_.literal.dictionary({
-                                            "astn parse tree": t_unmarshall.Schema(schema, {
-                                                'constrained': false,
-                                            }),
-                                            "list of characters": t_deserialize.Schema(schema, {
-                                                'constrained': false,
-                                            }),
-                                        }),
-                                    )
-                                })
-                            ))
-                            default: return p_.exhaustive($[0])
-                        }
-                    }
-                )
-        })
+                // "signatures": signatures
+            })
         // return m.set(p_.from.dictionary(//     p_.dictionary.literal<p_di.Optional_Value<s_out.Package_Set.D>>({
         //         "data": p_.literal.set(constrained
         //             ? m.set(p_.literal.dictionary({
