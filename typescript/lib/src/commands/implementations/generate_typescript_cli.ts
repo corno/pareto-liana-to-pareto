@@ -15,11 +15,6 @@ import type * as s_path from "pareto-filesystem-unrestricted-api/modules/unrestr
 
 import type * as s_generate_typescript_cli from "../../schemas/typescript_generation_from_the_command_line/schema.js"
 
-type Res = {
-    'source': s_path.Node_Path
-    'target': s_path.Context_Path
-}
-
 //dependencies
 import * as c_generate_typescript from "./generate_typescript.js"
 import * as t_generate_typescript_to_serialized from "../../schemas/typescript_generation/transformers/serialized.js"
@@ -55,7 +50,10 @@ export const $$: p_.Command_Implementation<
             [
                 p_.s.refine(
                     (abort) => p_iterate<
-                        Res,
+                        {
+                            'source': s_path.Node_Path
+                            'target': s_path.Context_Path
+                        },
                         string,
                         null
                     >({
