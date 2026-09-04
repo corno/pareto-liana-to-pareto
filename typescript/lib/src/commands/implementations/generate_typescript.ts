@@ -82,7 +82,7 @@ export const $$: p_.Command_Implementation<
                             (abort): s_schema.Package => p_temp.from.state($d.type).decide(
                                 ($) => {
                                     switch ($[0]) {
-                                        case 'module specification': return p_temp.ss($, ($) => p_variables(
+                                        case 'module specification': return p_temp.option($, ($) => p_variables(
                                             () => {
                                                 const x = r_schema.Module_Specification(
                                                     r_unresolved_schema_from_loc.Module_Specification(
@@ -107,7 +107,7 @@ export const $$: p_.Command_Implementation<
                                                     'schema tree': x.schema
                                                 }
                                             }))
-                                        case 'package': return p_temp.ss($, ($) => r_schema.Package(
+                                        case 'package': return p_temp.option($, ($) => r_schema.Package(
                                             r_unresolved_schema_from_loc.Package(
                                                 $v2.data,
                                                 ($) => abort(['could not deserialize', {

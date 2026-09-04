@@ -141,18 +141,18 @@ export const $$: p_.Command_Implementation<
                             p_temp.from.state($).decide(
                                 ($) => {
                                     switch ($[0]) {
-                                        case 'missing': return p_temp.ss($, ($) => p_temp.from.state($.expected).decide(
+                                        case 'missing': return p_temp.option($, ($) => p_temp.from.state($.expected).decide(
                                             ($) => {
                                                 switch ($[0]) {
-                                                    case 'source path': return p_temp.ss($, ($) => sh.ph.text("missing source path argument"))
-                                                    case 'target path': return p_temp.ss($, ($) => sh.ph.text("missing target path argument"))
+                                                    case 'source path': return p_temp.option($, ($) => sh.ph.text("missing source path argument"))
+                                                    case 'target path': return p_temp.option($, ($) => sh.ph.text("missing target path argument"))
                                                     default: return p_temp.exhaustive($[0])
                                                 }
                                             }
                                         ))
-                                        case 'invalid source path': return p_temp.ss($, ($) => sh.ph.text("invalid source path argument"))
-                                        case 'too many arguments': return p_temp.ss($, ($) => sh.ph.text("too many arguments"))
-                                        case 'processing': return p_temp.ss($, ($) => sh.ph.text("error while processing"))
+                                        case 'invalid source path': return p_temp.option($, ($) => sh.ph.text("invalid source path argument"))
+                                        case 'too many arguments': return p_temp.option($, ($) => sh.ph.text("too many arguments"))
+                                        case 'processing': return p_temp.option($, ($) => sh.ph.text("error while processing"))
                                         default: return p_temp.exhaustive($[0])
                                     }
                                 }
