@@ -1,6 +1,6 @@
-import * as p_ from 'pareto-core/implementation/command'
-import * as p_temp from 'pareto-core/implementation/transformer'
-import p_iterate from 'pareto-core/implementation/refiner/specials/iterate'
+import * as p_ from 'pareto-core/command'
+import * as p_temp from 'pareto-core/transformer'
+import p_iterate from 'pareto-core/refiner/specials/iterate'
 
 //interface dependencies
 import type * as command_interfaces_pareto_application_api from "pareto-application-api/commands/interfaces"

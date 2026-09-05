@@ -1,5 +1,5 @@
-import type * as p_di from 'pareto-core/interface/schema'
-import * as p_ from 'pareto-core/implementation/transformer'
+import type * as p_di from 'pareto-core/schema'
+import * as p_ from 'pareto-core/transformer'
 
 //schemas
 import type * as s_location from "astn-core/modules/deserialization/schemas/location/schema"

@@ -1,4 +1,4 @@
-import type * as p_i from 'pareto-core/interface/transformer'
+import type * as p_i from 'pareto-core/transformer'
 
 //schemas
 import type * as s_in from "../schema.js"
