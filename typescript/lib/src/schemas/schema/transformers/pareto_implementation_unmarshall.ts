@@ -1,6 +1,6 @@
 import * as p_ from 'pareto-core/transformer'
-import type * as p_i from 'pareto-core/transformer'
 import type * as p_di from 'pareto-core/schema'
+import * as p_s from 'pareto-core/serializer'
 import p_unreachable_code_path from 'pareto-core/transformer/specials/unreachable_code_path'
 
 //schemas
@@ -10,7 +10,7 @@ import type * as s_out_interface from "pareto/modules/interface_old/schemas/reso
 import type * as s_out from "pareto/modules/implementation_old/schemas/resolved/schema"
 namespace declarations {
 
-    export type Schema = p_i.Transformer_With_Parameter<
+    export type Schema = p_.Transformer_With_Parameter<
         s_in.Schema,
         s_out.Package_Set.D,
         {
@@ -19,12 +19,12 @@ namespace declarations {
         }
     >
 
-    export type Value = p_i.Transformer_With_Parameter<
+    export type Value = p_.Transformer_With_Parameter<
         s_in.Value,
         s_out.Assign,
         {
             'temp type': string,
-            'temp subselection': p_di.List<s_out_interface.Value.reference.sub_selection.L>,
+            'temp subselection': s_out_interface.Value.reference.sub_selection,
             'constrained': boolean,
         }
     >
@@ -172,7 +172,13 @@ export const Value: declarations.Value = ($, $p) => {
                             p_.from.state($.type).decide(
                                 ($) => {
                                     switch ($[0]) {
-                                        case 'external': return p_.option($, ($) => sh.call.external(`external ${$.import['l id']}`, $.module['l id']))
+                                        case 'external': return p_.option($, ($) => sh.call.external(
+                                            p_s.ph.list(p_.literal.list([
+                                                "external ",
+                                                $.import['l id']
+                                            ])),
+                                            $.module['l id']
+                                        ))
                                         case 'internal': return p_.option($, ($) => sh.call.local($['l id']))
                                         case 'internal acyclic': return p_.option($, ($) => sh.call.local($['l id']))
                                         default: return p_.exhaustive($[0])
@@ -528,8 +534,8 @@ export const Value: declarations.Value = ($, $p) => {
                                             sh.sv.call(
                                                 sh.call.external(
                                                     "unmarshalled from parse tree",
-                                                     "Number"
-                                                    ),
+                                                    "Number"
+                                                ),
                                                 sh.a.select(
                                                     sh.sv.context(
                                                         p_.literal.list([])

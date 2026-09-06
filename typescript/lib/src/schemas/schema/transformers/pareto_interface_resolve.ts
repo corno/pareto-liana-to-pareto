@@ -1,4 +1,5 @@
 import * as p_ from 'pareto-core/transformer'
+import * as p_s from 'pareto-core/serializer'
 import type * as p_i from 'pareto-core/transformer'
 
 //schemas
@@ -95,7 +96,10 @@ export const Module_Reference = (
         ($) => {
             switch ($[0]) {
                 case 'external': return p_.option($, ($) => sh.mr.imported(
-                    `imports ${$.import['l id']}`,
+                    p_s.ph.list(p_.literal.list([
+                        "imports ",
+                        $.import['l id']
+                    ])),
                     $.module['l id'],
                 ))
                 case 'internal': return p_.option($, ($) => sh.mr.imported(

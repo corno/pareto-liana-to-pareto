@@ -1,4 +1,5 @@
 import * as p_ from 'pareto-core/transformer'
+import * as p_s from 'pareto-core/serializer'
 import type * as p_i from 'pareto-core/transformer'
 import type * as p_di from 'pareto-core/schema'
 import p_unreachable_code_path from 'pareto-core/transformer/specials/unreachable_code_path'
@@ -143,7 +144,13 @@ export const Value: declarations.Value = ($, $p) => p_.from.state($).decide(
                     p_.from.state($.type).decide(
                         ($) => {
                             switch ($[0]) {
-                                case 'external': return p_.option($, ($) => sh.call.external(`external ${$.import['l id']}`, $.module['l id']))
+                                case 'external': return p_.option($, ($) => sh.call.external(
+                                    p_s.ph.list(p_.literal.list([
+                                        "external ",
+                                        $.import['l id']
+                                    ])),
+                                    $.module['l id'])
+                                )
                                 case 'internal acyclic': return p_.option($, ($) => sh.call.local($['l id']))
                                 case 'internal': return p_.option($, ($) => sh.call.local($['l id']))
                                 default: return p_.exhaustive($[0])

@@ -40,22 +40,22 @@ const location = sh.a.state.literal(
         p_.literal.dictionary({
             "start": sh.a.group.literal(
                 p_.literal.dictionary({
-                    "absolute": sh.a.number.integer_literal(42),
+                    "absolute": sh.a.number.integer_literal(0), //FIXME!
                     "relative": sh.a.group.literal(
                         p_.literal.dictionary({
-                            "line": sh.a.number.integer_literal(42),
-                            "column": sh.a.number.integer_literal(42),
+                            "line": sh.a.number.integer_literal(0),
+                            "column": sh.a.number.integer_literal(0),
                         })
                     )
                 })
             ),
             "end": sh.a.group.literal(
                 p_.literal.dictionary({
-                    "absolute": sh.a.number.integer_literal(42),
+                    "absolute": sh.a.number.integer_literal(0),
                     "relative": sh.a.group.literal(
                         p_.literal.dictionary({
-                            "line": sh.a.number.integer_literal(42),
-                            "column": sh.a.number.integer_literal(42),
+                            "line": sh.a.number.integer_literal(0),
+                            "column": sh.a.number.integer_literal(0),
                         })
                     )
                 })

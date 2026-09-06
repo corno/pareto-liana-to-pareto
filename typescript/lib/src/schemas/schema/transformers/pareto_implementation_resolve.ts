@@ -7,24 +7,52 @@ import p_unreachable_code_path from 'pareto-core/transformer/specials/unreachabl
 import type * as s_in from "../schema.js"
 
 import type * as s_out from "pareto/modules/implementation_old/schemas/resolved/schema"
+
+namespace s_parameters {
+
+    export type Resolver_Value = {
+        'temp type': string
+        'temp subselection': p_di.List<s_out.Temp_Value_Type_Specification.sub_selection.L> //can be removed when pareto has type inference
+    }
+
+    export type Resolver_Modules = {
+        'path': p_di.List<string>,
+        'imports': s_in.Resolver_Imports,
+        'depth': number,
+    }
+
+    export type Possible_Value_Selection = {
+        'tail': p_di.List<s_out.Select_Value.regular.tail.L>
+    }
+
+    export type Option_Constraints = {
+        sub: s_out.Assign
+    }
+
+    export type Value_Constraints = {
+        sub: s_out.Assign
+    }
+    export type Value_Results = {
+        'base type': s_out.Assign
+    }
+
+    export type Resolver_Guaranteed_Value_Selection = {
+        'tail': p_di.List<s_out.Select_Value.regular.tail.L>
+    }
+}
+
 namespace declarations {
 
     export type Resolver_Modules = p_i.Transformer_With_Parameter<
         s_in.Resolver_Modules,
         s_out.Package_Set.D,
-        {
-            'path': p_di.List<string>,
-            'imports': s_in.Resolver_Imports,
-            'depth': number,
-        }
+        s_parameters.Resolver_Modules
     >
 
     export type Possible_Value_Selection = p_i.Transformer_With_Parameter<
         s_in.Resolver_Possible_Value_Selection,
         s_out.Select_Value,
-        {
-            'tail': p_di.List<s_out.Select_Value.regular.tail.L>
-        }
+        s_parameters.Possible_Value_Selection
     >
 
     export type Optional_Value_Initialization = p_i.Transformer<
@@ -227,9 +255,7 @@ export const Optional_Value_Initialization: declarations.Optional_Value_Initiali
 
 export const Resolver_Guaranteed_Value_Selection = (
     $: s_in.Resolver_Guaranteed_Value_Selection,
-    $p: {
-        'tail': p_di.List<s_out.Select_Value.regular.tail.L>
-    },
+    $p: s_parameters.Resolver_Guaranteed_Value_Selection,
 ): s_out.Select_Value => {
     const tail = (): p_di.List<s_out.Select_Value.regular.tail.L> => p_.literal.segmented_list([
         p_.from.list($.tail.path['l value']).flatten(
@@ -323,13 +349,12 @@ export const Resolver_Lookup_Selection = (
             case 'parameter': return p_.option($, ($) => sh.sl.from_parameter($['l id']))
             default: return p_.exhaustive($[0])
         }
-    })
+    }
+)
 
 export const Option_Constraints = (
     $: s_in.Resolver_Option_Constraints,
-    $p: {
-        sub: s_out.Assign
-    },
+    $p: s_parameters.Option_Constraints,
 ): s_out.Assign => p_.from.dictionary($).on_has_entries(
     ($) => sh.a.variables(
         p_.from.dictionary(
@@ -428,10 +453,7 @@ export const Option_Constraints = (
 
 export const Resolver_Value = (
     $: s_in.Resolver_Value,
-    $p: {
-        'temp type': string
-        'temp subselection': p_di.List<s_out.Temp_Value_Type_Specification.sub_selection.L> //can be removed when pareto has type inference
-    },
+    $p: s_parameters.Resolver_Value,
 ): s_out.Assign => p_.from.state($).decide(
     ($) => {
         switch ($[0]) {
@@ -944,16 +966,15 @@ export const Resolver_Constraint: declarations.Constraint = (
 export const Relative_Value_Selection = (
     $: s_in.Resolver_Relative_Value_Selection,
 ): s_out.Select_Value => {
-    p_.from.list($.path['l value']).map(
-        ($) => null)
+    // p_.from.list($.path['l value']).map(
+    //     ($) => null
+    // )
     return sh.sv.implement_me("IM: rvs")
 }
 
 export const Value_Constraints = (
     $: s_in.Resolver_Value_Constraints,
-    $p: {
-        sub: s_out.Assign
-    }
+    $p: s_parameters.Value_Constraints
 ): s_out.Assign => {
     return p_.from.dictionary($).on_has_entries(
         () => sh.a.group.literal_resolve(
@@ -985,9 +1006,7 @@ export const Value_Reference = (
 
 export const Value_Results = (
     $: s_in.Value_Results,
-    $p: {
-        'base type': s_out.Assign
-    }
+    $p: s_parameters.Value_Results
 ): s_out.Assign => {
     return p_.from.optional($).decide(
         ($) => sh.a.group.literal(

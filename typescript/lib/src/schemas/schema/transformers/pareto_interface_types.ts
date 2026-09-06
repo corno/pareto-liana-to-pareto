@@ -1,5 +1,5 @@
 import * as p_ from 'pareto-core/transformer'
-import type * as p_i from 'pareto-core/transformer'
+import * as p_s from 'pareto-core/serializer'
 import p_unreachable_code_path from 'pareto-core/transformer/specials/unreachable_code_path'
 import p_variables from 'pareto-core/refiner/specials/variables'
 
@@ -7,9 +7,15 @@ import p_variables from 'pareto-core/refiner/specials/variables'
 import type * as s_in from "../schema.js"
 import type * as s_out from "pareto/modules/interface_old/schemas/resolved/schema" //FIXME; this should be unresolved
 
+namespace s_parameters {
+    export type Value_Reference_temp = {
+        'type': "cyclic" | "acyclic"
+    }
+}
+
 namespace declarations {
 
-    export type Schema = p_i.Transformer_With_Parameter<
+    export type Schema = p_.Transformer_With_Parameter<
         s_in.Schema,
         s_out.Package_Set.D,
         {
@@ -22,12 +28,12 @@ namespace declarations {
         }
     >
 
-    export type Module_Reference = p_i.Transformer<
+    export type Module_Reference = p_.Transformer<
         s_in.Module_Reference,
         s_out.Module_Reference
     >
 
-    export type Value = p_i.Transformer_With_Parameter<
+    export type Value = p_.Transformer_With_Parameter<
         s_in.Value,
         s_out.Value,
         {
@@ -38,7 +44,7 @@ namespace declarations {
         }
     >
 
-    export type Value_Results = p_i.Transformer_With_Parameter<
+    export type Value_Results = p_.Transformer_With_Parameter<
         s_in.Value_Results,
         s_out.Value,
         {
@@ -46,12 +52,12 @@ namespace declarations {
         }
     >
 
-    export type Simple_Type = p_i.Transformer<
+    export type Simple_Type = p_.Transformer<
         s_in.Simple_Type,
         s_out.Value
     >
 
-    export type Value_Path = p_i.Transformer<
+    export type Value_Path = p_.Transformer<
         s_in.Value_Path,
         s_out.Value.reference.sub_selection
     >
@@ -146,7 +152,10 @@ export const Module_Reference: declarations.Module_Reference = ($) => p_.from.st
         switch ($[0]) {
             case 'internal': return p_.option($, ($) => sh.mr.local($['l id']))
             case 'external': return p_.option($, ($) => sh.mr.imported(
-                "imports " + $.import['l id'],
+                p_s.ph.list(p_.literal.list([
+                    "imports",
+                    $.import['l id'],
+                ])),
                 $.module['l id'],
             ))
             default: return p_.exhaustive($[0])
@@ -415,9 +424,7 @@ const Value_Reference = (
 
 const Value_Reference_temp = (
     $: s_in.Value_Reference,
-    $p: {
-        'type': "cyclic" | "acyclic"
-    }
+    $p: s_parameters.Value_Reference_temp
 ): s_out.Value => sh.t.reference(
     Module_Reference($['module']),
     p_.literal.chain(
