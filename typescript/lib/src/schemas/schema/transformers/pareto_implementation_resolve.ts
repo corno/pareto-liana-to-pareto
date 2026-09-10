@@ -1,5 +1,5 @@
 import * as p_ from 'pareto-core/transformer'
-import type * as p_i from 'pareto-core/transformer'
+import * as p_r from 'pareto-core/refiner'
 import type * as p_di from 'pareto-core/schema'
 import p_unreachable_code_path from 'pareto-core/transformer/specials/unreachable_code_path'
 
@@ -43,29 +43,29 @@ namespace s_parameters {
 
 namespace declarations {
 
-    export type Resolver_Modules = p_i.Transformer_With_Parameter<
+    export type Resolver_Modules = p_.Transformer_With_Parameter<
         s_in.Resolver_Modules,
         s_out.Package_Set.D,
         s_parameters.Resolver_Modules
     >
 
-    export type Possible_Value_Selection = p_i.Transformer_With_Parameter<
+    export type Possible_Value_Selection = p_.Transformer_With_Parameter<
         s_in.Resolver_Possible_Value_Selection,
         s_out.Select_Value,
         s_parameters.Possible_Value_Selection
     >
 
-    export type Optional_Value_Initialization = p_i.Transformer<
+    export type Optional_Value_Initialization = p_.Transformer<
         s_in.Resolver_Optional_Value_Initialization,
         s_out.Assign
     >
 
-    export type Value_Constraint = p_i.Transformer<
+    export type Value_Constraint = p_.Transformer<
         s_in.Resolver_Value_Constraint,
         s_out.Assign
     >
 
-    export type Constraint = p_i.Transformer<
+    export type Constraint = p_.Transformer<
         s_in.Resolver_Constraint,
         s_out.Assign
     >
@@ -75,19 +75,6 @@ namespace declarations {
 //shorthands
 import * as sh from "pareto/modules/implementation_old/schemas/resolved/shorthands/target"
 import * as sh_i from "pareto/modules/interface_old/schemas/resolved/shorthands/target"
-
-const temp_prepend = <T extends p_di.Value>(
-    $: p_di.Dictionary<T>,
-    prefix: string
-) => {
-    const result: { [id: string]: T } = {}
-    p_.from.dictionary($).map(
-        ($, id) => {
-            result[prefix + id] = $
-            return null
-        })
-    return p_.literal.dictionary(result)
-}
 
 const no_such_entry_error = sh.a.group.literal(
     p_.literal.dictionary({
@@ -358,7 +345,7 @@ export const Option_Constraints = (
 ): s_out.Assign => p_.from.dictionary($).on_has_entries(
     ($) => sh.a.variables(
         p_.from.dictionary(
-            temp_prepend($, "constraint "),
+            p_r.from.dictionary($).prepend_id("constraint "),
         ).map(
             ($, id) => p_.from.state($).decide(
                 ($) => {
