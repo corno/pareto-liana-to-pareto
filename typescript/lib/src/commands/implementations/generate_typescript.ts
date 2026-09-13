@@ -19,7 +19,8 @@ import * as t_liana_to_pareto_implementation from "../../schemas/schema/transfor
 import * as t_liana_to_pareto_interface from "../../schemas/schema/transformers/pareto_interface.js"
 import * as t_pareto_implementation_to_typescript_directory from "pareto/modules/implementation_old/schemas/resolved/transformers/typescript_project"
 import * as t_pareto_interface_to_typescript_directory from "pareto/modules/interface_old/schemas/resolved/transformers/to_be_written_directory_content"
-import * as t_path_to_path from "pareto-filesystem-unrestricted-api/modules/unrestricted/schemas/path/transformers/path"
+import * as t_path_to_path_extended_with_single_step from "pareto-filesystem-unrestricted-api/modules/unrestricted/schemas/path/transformers/path_extended_with_single_step"
+import * as t_path_to_path_extended_with_list from "pareto-filesystem-unrestricted-api/modules/unrestricted/schemas/path/transformers/path_extended_with_list"
 
 export const $$: p_.Command_Implementation<
     p_inf.Command_Interface<
@@ -51,29 +52,25 @@ export const $$: p_.Command_Implementation<
                 () => {
                     const path = $d.target
 
-                    const lib_path = t_path_to_path.extend_context_path_with_list(
+                    const lib_path = t_path_to_path_extended_with_list.Context_Path(
                         path,
                         { 'addition': p_.literal.list(["typescript", "lib", "src"]) }
                     )
 
-                    const interface_module_path = t_path_to_path.create_node_path(
-                        t_path_to_path.extend_context_path_with_list(
+                    const interface_module_path = {
+                        'context': t_path_to_path_extended_with_list.Context_Path(
                             lib_path,
                             { 'addition': p_.literal.list(["interface", "generated"]) }
                         ),
-                        {
-                            'node': "liana"
-                        }
-                    )
-                    const implementation_module_path = t_path_to_path.create_node_path(
-                        t_path_to_path.extend_context_path_with_list(
+                        'node': "liana"
+                    }
+                    const implementation_module_path = {
+                        'context': t_path_to_path_extended_with_list.Context_Path(
                             lib_path,
                             { 'addition': p_.literal.list(["implementation", "generated"]) }
                         ),
-                        {
-                            'node': "liana"
-                        }
-                    )
+                        'node': "liana"
+                    }
 
 
                     return [
@@ -133,7 +130,8 @@ export const $$: p_.Command_Implementation<
                                 //write new interface files
                                 write_directory_content(
                                     {
-                                        'remove before writing': true
+                                        'remove before writing': true,
+                                        'replace spaces in node names by underscores': true
                                     },
                                     null,
                                     {
@@ -142,7 +140,12 @@ export const $$: p_.Command_Implementation<
                                     },
                                 ).execute(
                                     {
-                                        'path': t_path_to_path.deprecated_node_path_to_context_path(interface_module_path),
+                                        'path': t_path_to_path_extended_with_single_step.Context_Path(
+                                            interface_module_path.context,
+                                            {
+                                                'addition': interface_module_path.node
+                                            }
+                                        ),
                                         'directory': t_pareto_interface_to_typescript_directory.Package_Set(
                                             t_liana_to_pareto_interface.Package(
                                                 $,
@@ -165,7 +168,8 @@ export const $$: p_.Command_Implementation<
                                 //write new implementation files
                                 write_directory_content(
                                     {
-                                        'remove before writing': true
+                                        'remove before writing': true,
+                                        'replace spaces in node names by underscores': true
                                     },
                                     null,
                                     {
@@ -174,7 +178,12 @@ export const $$: p_.Command_Implementation<
                                     },
                                 ).execute(
                                     {
-                                        'path': t_path_to_path.deprecated_node_path_to_context_path(implementation_module_path),
+                                        'path': t_path_to_path_extended_with_single_step.Context_Path(
+                                            implementation_module_path.context,
+                                            {
+                                                'addition': implementation_module_path.node
+                                            }
+                                        ),
                                         'directory': t_pareto_implementation_to_typescript_directory.Package_Set(
                                             t_liana_to_pareto_implementation.Package(
                                                 $,
