@@ -21,7 +21,6 @@ namespace declarations {
 
 //shorthands
 import * as sh from "pareto/modules/implementation_old/schemas/resolved/shorthands/target"
-import * as sh_i from "pareto/modules/interface_old/schemas/resolved/shorthands/target"
 
 export const Schema: declarations.Schema = ($, $p) => {
     const constrained = $.complexity[0] === 'constrained'
@@ -29,7 +28,7 @@ export const Schema: declarations.Schema = ($, $p) => {
     return sh.m.package_(
         p_.literal.list([]),
         p_.literal.dictionary({
-            "signatures": sh_i.import_.ancestor(
+            "signatures": sh.interface_.import_.ancestor(
                 $p.depth,
                 "interface",
                 p_.literal.segmented_list([
@@ -56,7 +55,7 @@ export const Schema: declarations.Schema = ($, $p) => {
             ),
         }),
         p_.literal.dictionary({
-            "deserialize": sh_i.import_.external(
+            "deserialize": sh.interface_.import_.external(
                 "astn-core",
                 p_.literal.list([
                     "dist",
@@ -67,7 +66,7 @@ export const Schema: declarations.Schema = ($, $p) => {
                     "list of characters",
                 ]),
             ),
-            "unmarshall": sh_i.import_.sibling(
+            "unmarshall": sh.interface_.import_.sibling(
                 "astn parse tree",
                 p_.literal.list([])
             ),

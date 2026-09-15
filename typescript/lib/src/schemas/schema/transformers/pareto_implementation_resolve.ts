@@ -5,8 +5,10 @@ import p_unreachable_code_path from 'pareto-core/transformer/specials/unreachabl
 
 //schemas
 import type * as s_in from "../schema.js"
-
 import type * as s_out from "pareto/modules/implementation_old/schemas/resolved/schema"
+
+//shorthands
+import * as sh from "pareto/modules/implementation_old/schemas/resolved/shorthands/target"
 
 namespace s_parameters {
 
@@ -72,10 +74,6 @@ namespace declarations {
 
 }
 
-//shorthands
-import * as sh from "pareto/modules/implementation_old/schemas/resolved/shorthands/target"
-import * as sh_i from "pareto/modules/interface_old/schemas/resolved/shorthands/target"
-
 const no_such_entry_error = sh.a.group.literal(
     p_.literal.dictionary({
         "type": sh.a.state.literal(
@@ -131,7 +129,7 @@ export const Resolver_Modules: declarations.Resolver_Modules = ($, $p) => {
     return sh.m.package_(
         p_.literal.list(['change context', 'variables', 'lookups', 'unreachable code path']),
         p_.literal.dictionary({
-            "out": sh_i.import_.ancestor(
+            "out": sh.interface_.import_.ancestor(
                 $p.depth,
                 "interface",
                 p_.literal.segmented_list([
@@ -144,7 +142,7 @@ export const Resolver_Modules: declarations.Resolver_Modules = ($, $p) => {
                     p_.literal.list(["data", "resolved"])
                 ])
             ),
-            "signatures": sh_i.import_.ancestor(
+            "signatures": sh.interface_.import_.ancestor(
                 $p.depth,
                 "interface",
                 p_.literal.segmented_list([
@@ -166,7 +164,7 @@ export const Resolver_Modules: declarations.Resolver_Modules = ($, $p) => {
         p_.from.dictionary(
             p_.literal.dictionary({
                 "external ": p_.from.dictionary($p.imports).map(
-                    ($, id) => sh_i.import_.ancestor(
+                    ($, id) => sh.interface_.import_.ancestor(
                         3,
                         $['schema set child']['l value']['l id'],
                         p_.literal.list([
@@ -571,7 +569,7 @@ export const Resolver_Value = (
                                         'temp type': $p['temp type'],
                                         'temp subselection': p_.literal.chain(
                                             $p['temp subselection'],
-                                            sh_i.sub.dictionary(),
+                                            sh.interface_.sub.dictionary(),
                                         ),
                                     }
 
@@ -580,7 +578,7 @@ export const Resolver_Value = (
                         ),
                         sh.type_node_reference("out", $p['temp type'], p_.literal.chain(
                             $p['temp subselection'],
-                            sh_i.sub.dictionary(),
+                            sh.interface_.sub.dictionary(),
                         ))
 
                     ),
@@ -598,7 +596,7 @@ export const Resolver_Value = (
                                     'temp type': $p['temp type'],
                                     'temp subselection': p_.literal.chain(
                                         $p['temp subselection'],
-                                        sh_i.sub.dictionary(),
+                                        sh.interface_.sub.dictionary(),
                                     ),
                                 }
 
@@ -606,7 +604,7 @@ export const Resolver_Value = (
                         ),
                         sh.type_node_reference("out", $p['temp type'], p_.literal.chain(
                             $p['temp subselection'],
-                            sh_i.sub.dictionary(),
+                            sh.interface_.sub.dictionary(),
                         ))
 
                     )
@@ -624,7 +622,7 @@ export const Resolver_Value = (
                                 'temp type': $p['temp type'],
                                 'temp subselection': p_.literal.chain(
                                     $p['temp subselection'],
-                                    sh_i.sub.group(id)
+                                    sh.interface_.sub.group(id)
                                 ),
                             }
                         )
@@ -654,9 +652,9 @@ export const Resolver_Value = (
                                                     'temp subselection': p_.literal.segmented_list([
                                                         $p['temp subselection'],
                                                         p_.literal.list([
-                                                            sh_i.sub.group("l value"),
-                                                            sh_i.sub.list(),
-                                                            sh_i.sub.group("l item"),
+                                                            sh.interface_.sub.group("l value"),
+                                                            sh.interface_.sub.list(),
+                                                            sh.interface_.sub.group("l item"),
                                                         ])
                                                     ]),
                                                 }
@@ -689,7 +687,7 @@ export const Resolver_Value = (
                                     'temp type': $p['temp type'],
                                     'temp subselection': p_.literal.chain(
                                         $p['temp subselection'],
-                                        sh_i.sub.list()
+                                        sh.interface_.sub.list()
                                     ),
                                 }
                             )
@@ -712,7 +710,7 @@ export const Resolver_Value = (
                         'temp type': $p['temp type'],
                         'temp subselection': p_.literal.chain(
                             $p['temp subselection'],
-                            sh_i.sub.optional()
+                            sh.interface_.sub.optional()
                         ),
                     }
                 )
@@ -848,11 +846,11 @@ export const Resolver_Value = (
                                                         $p['temp subselection'],
                                                         p_.from.optional($v_results).decide(
                                                             () => p_.literal.list([
-                                                                sh_i.sub.group("l value"),
-                                                                sh_i.sub.state(id),
+                                                                sh.interface_.sub.group("l value"),
+                                                                sh.interface_.sub.state(id),
                                                             ]),
                                                             () => p_.literal.list([
-                                                                sh_i.sub.state(id),
+                                                                sh.interface_.sub.state(id),
                                                             ])
                                                         )
                                                     ]),
@@ -866,7 +864,7 @@ export const Resolver_Value = (
                                         $p['temp subselection'],
                                         p_.from.optional($v_results).decide(
                                             () => p_.literal.list([
-                                                sh_i.sub.group("l value"),
+                                                sh.interface_.sub.group("l value"),
                                             ]),
                                             () => p_.literal.list([])
                                         ),

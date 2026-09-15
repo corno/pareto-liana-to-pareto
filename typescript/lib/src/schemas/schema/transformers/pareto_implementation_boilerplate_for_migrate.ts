@@ -32,7 +32,6 @@ namespace declarations {
 
 //shorthands
 import * as sh from "pareto/modules/implementation_old/schemas/resolved/shorthands/target"
-import * as sh_i from "pareto/modules/interface_old/schemas/resolved/shorthands/target"
 
 const location = sh.a.state.literal(
     "in main document",
@@ -69,7 +68,7 @@ export const Schema: declarations.Schema = ($, $p) => {
     return sh.m.package_(
         p_.literal.list(['change context']),
         p_.literal.dictionary({
-            "signatures": sh_i.import_.ancestor(
+            "signatures": sh.interface_.import_.ancestor(
                 $p.depth,
                 "interface",
                 p_.literal.segmented_list([
@@ -94,7 +93,7 @@ export const Schema: declarations.Schema = ($, $p) => {
                     ])
                 ])
             ),
-            "out": sh_i.import_.ancestor(
+            "out": sh.interface_.import_.ancestor(
                 $p.depth,
                 "interface",
                 p_.literal.segmented_list([
@@ -117,12 +116,12 @@ export const Schema: declarations.Schema = ($, $p) => {
         }),
         p_.from.dictionary($['schema imports']).map(
             ($, id) => constrained
-                ? sh_i.import_.ancestor(
+                ? sh.interface_.import_.ancestor(
                     3,
                     $['schema set child']['l value']['l id'],
                     p_.literal.list(["resolved", "transformers", "boilerplate for migrate"])
                 )
-                : sh_i.import_.ancestor(
+                : sh.interface_.import_.ancestor(
                     2,
                     $['schema set child']['l value']['l id'],
                     p_.literal.list(["transformers", "boilerplate for migrate"])

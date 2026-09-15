@@ -18,14 +18,13 @@ namespace declarations {
 
 //shorthands
 import * as sh from "pareto/modules/implementation_old/schemas/resolved/shorthands/target"
-import * as sh_i from "pareto/modules/interface_old/schemas/resolved/shorthands/target"
 
 export const Schema: declarations.Schema = ($,
     $p) => {
     return sh.m.package_(
         p_.literal.list([]),
         p_.literal.dictionary({
-            "signatures": sh_i.import_.ancestor(
+            "signatures": sh.interface_.import_.ancestor(
                 $p.depth,
                 "interface",
                 p_.literal.segmented_list([
@@ -42,14 +41,14 @@ export const Schema: declarations.Schema = ($,
             ),
         }),
         p_.literal.dictionary({
-            "deserialize": sh_i.import_.ancestor(
+            "deserialize": sh.interface_.import_.ancestor(
                 2,
                 "unresolved",
                 p_.literal.list([
                     "refiners",
                     "list of characters",
                 ])),
-            "resolve": sh_i.import_.sibling(
+            "resolve": sh.interface_.import_.sibling(
                 "unresolved",
                 p_.literal.list([])
             ),

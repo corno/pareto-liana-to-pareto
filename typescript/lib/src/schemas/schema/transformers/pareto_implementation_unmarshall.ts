@@ -6,8 +6,11 @@ import p_unreachable_code_path from 'pareto-core/transformer/specials/unreachabl
 //schemas
 import type * as s_in from "../schema.js"
 import type * as s_out_interface from "pareto/modules/interface_old/schemas/resolved/schema"
-
 import type * as s_out from "pareto/modules/implementation_old/schemas/resolved/schema"
+
+//shorthands
+import * as sh from "pareto/modules/implementation_old/schemas/resolved/shorthands/target"
+
 namespace declarations {
 
     export type Schema = p_.Transformer_With_Parameter<
@@ -29,10 +32,6 @@ namespace declarations {
         }
     >
 }
-
-//shorthands
-import * as sh from "pareto/modules/implementation_old/schemas/resolved/shorthands/target"
-import * as sh_i from "pareto/modules/interface_old/schemas/resolved/shorthands/target"
 
 //dependencies
 
@@ -59,7 +58,7 @@ export const Schema: declarations.Schema = ($, $p) => {
     return sh.m.package_(
         p_.literal.list(['change context', 'list from text', 'variables']),
         p_.literal.dictionary({
-            "signatures": sh_i.import_.ancestor(
+            "signatures": sh.interface_.import_.ancestor(
                 $p.depth,
                 "interface",
                 p_.literal.segmented_list([
@@ -81,7 +80,7 @@ export const Schema: declarations.Schema = ($, $p) => {
                     ]),
                 ]),
             ),
-            "out": sh_i.import_.ancestor(
+            "out": sh.interface_.import_.ancestor(
                 $p.depth,
                 "interface",
                 p_.literal.segmented_list([
@@ -101,7 +100,7 @@ export const Schema: declarations.Schema = ($, $p) => {
             p_.literal.dictionary({
                 "": p_.literal.dictionary({
 
-                    "unmarshalled from parse tree": sh_i.import_.external(
+                    "unmarshalled from parse tree": sh.interface_.import_.external(
                         "liana-core",
                         p_.literal.list([
                             "dist",
@@ -112,7 +111,7 @@ export const Schema: declarations.Schema = ($, $p) => {
                             "astn parse tree"
                         ])
                     ),
-                    "parse tree to location": sh_i.import_.external(
+                    "parse tree to location": sh.interface_.import_.external(
                         "liana-core",
                         p_.literal.list([
                             "dist",
@@ -126,12 +125,12 @@ export const Schema: declarations.Schema = ($, $p) => {
                 }),
                 "external ": p_.from.dictionary($['schema imports']).map(
                     ($, id) => constrained
-                        ? sh_i.import_.ancestor(
+                        ? sh.interface_.import_.ancestor(
                             3,
                             $['schema set child']['l value']['l id'],
                             p_.literal.list(["unresolved", "refiners", "astn parse tree"])
                         )
-                        : sh_i.import_.ancestor(
+                        : sh.interface_.import_.ancestor(
                             2,
                             $['schema set child']['l value']['l id'],
                             p_.literal.list(["refiners", "astn parse tree"])
@@ -254,9 +253,9 @@ export const Value: declarations.Value = ($, $p) => {
                                                         'temp subselection': p_.literal.segmented_list([
                                                             $p['temp subselection'],
                                                             p_.literal.list([
-                                                                sh_i.sub.group("l dictionary"),
-                                                                sh_i.sub.dictionary(),
-                                                                sh_i.sub.group("l entry"),
+                                                                sh.interface_.sub.group("l dictionary"),
+                                                                sh.interface_.sub.dictionary(),
+                                                                sh.interface_.sub.group("l entry"),
 
                                                             ])
                                                         ]),
@@ -278,7 +277,7 @@ export const Value: declarations.Value = ($, $p) => {
                                         'temp type': $p['temp type'],
                                         'temp subselection': p_.literal.chain(
                                             $p['temp subselection'],
-                                            sh_i.sub.dictionary(),
+                                            sh.interface_.sub.dictionary(),
                                         ),
                                         'constrained': $p.constrained
                                     }
@@ -357,7 +356,7 @@ export const Value: declarations.Value = ($, $p) => {
                                         'temp type': $p['temp type'],
                                         'temp subselection': p_.literal.chain(
                                             $p['temp subselection'],
-                                            sh_i.sub.group(id),
+                                            sh.interface_.sub.group(id),
                                         ),
                                         'constrained': $p.constrained
                                     }
@@ -405,9 +404,9 @@ export const Value: declarations.Value = ($, $p) => {
                                                         'temp subselection': p_.literal.segmented_list([
                                                             $p['temp subselection'],
                                                             p_.literal.list([
-                                                                sh_i.sub.group("l list"),
-                                                                sh_i.sub.list(),
-                                                                sh_i.sub.group("l item"),
+                                                                sh.interface_.sub.group("l list"),
+                                                                sh.interface_.sub.list(),
+                                                                sh.interface_.sub.group("l item"),
                                                             ])
                                                         ]),
                                                         'constrained': $p.constrained
@@ -450,7 +449,7 @@ export const Value: declarations.Value = ($, $p) => {
                                         'temp type': $p['temp type'],
                                         'temp subselection': p_.literal.chain(
                                             $p['temp subselection'],
-                                            sh_i.sub.list(),
+                                            sh.interface_.sub.list(),
                                         ),
                                         'constrained': $p.constrained
                                     }
@@ -612,7 +611,7 @@ export const Value: declarations.Value = ($, $p) => {
                             'temp type': $p['temp type'],
                             'temp subselection': p_.literal.chain(
                                 $p['temp subselection'],
-                                sh_i.sub.optional(),
+                                sh.interface_.sub.optional(),
                             ),
                             'constrained': $p.constrained
                         }
@@ -698,8 +697,8 @@ export const Value: declarations.Value = ($, $p) => {
                                                         'temp subselection': p_.literal.segmented_list([
                                                             $p['temp subselection'],
                                                             p_.literal.list([
-                                                                sh_i.sub.group("l state"),
-                                                                sh_i.sub.state(id),
+                                                                sh.interface_.sub.group("l state"),
+                                                                sh.interface_.sub.state(id),
                                                             ])
                                                         ]),
                                                         'constrained': $p.constrained
@@ -716,7 +715,7 @@ export const Value: declarations.Value = ($, $p) => {
                                                 'temp type': $p['temp type'],
                                                 'temp subselection': p_.literal.chain(
                                                     $p['temp subselection'],
-                                                    sh_i.sub.state(id),
+                                                    sh.interface_.sub.state(id),
                                                 ),
                                                 'constrained': $p.constrained
                                             }
