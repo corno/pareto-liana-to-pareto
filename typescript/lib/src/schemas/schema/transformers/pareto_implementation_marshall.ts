@@ -4,10 +4,12 @@ import type * as p_i from 'pareto-core/transformer'
 import type * as p_di from 'pareto-core/schema'
 import p_unreachable_code_path from 'pareto-core/transformer/specials/unreachable_code_path'
 
-
 //schemas
 import type * as s_in from "../schema.js"
 import type * as s_out from "pareto/modules/implementation_old/schemas/resolved/schema"
+
+//shorthands
+import * as sh from "pareto/modules/implementation_old/schemas/resolved/shorthands/target"
 
 namespace declarations {
 
@@ -30,9 +32,6 @@ namespace declarations {
     >
 
 }
-
-//shorthands
-import * as sh from "pareto/modules/implementation_old/schemas/resolved/shorthands/target"
 
 export const Schema: declarations.Schema = ($, $p) => {
     const constrained = $.complexity[0] === 'constrained'
@@ -479,4 +478,5 @@ export const Value: declarations.Value = ($, $p) => p_.from.state($).decide(
             ))
             default: return p_.exhaustive($[0])
         }
-    })
+    }
+)

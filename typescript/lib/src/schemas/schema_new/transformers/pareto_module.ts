@@ -23,8 +23,7 @@ import * as t_to_pareto_refiner_unresolved_from_astn_parse_tree from "./pareto_r
 import * as t_to_pareto_refiner_unresolved_from_list_of_characters from "./pareto_refiner_unresolved_from_list_of_characters.js"
 import * as t_to_pareto_refiner_resolved_from_unresolved from "./pareto_refiner_resolved_from_unresolved.js"
 import * as t_to_pareto_refiner_resolved_from_list_of_characters from "./pareto_refiner_resolved_from_list_of_characters.js"
-import * as t_to_pareto_schema_unresolved from "./pareto_schema_unresolved.js"
-import * as t_to_pareto_schema_resolved from "./pareto_schema_resolved.js"
+import * as t_to_pareto_schema from "./pareto_schema.js"
 import * as t_to_pareto_transformer_resolved_to_astn_sealed_target from "./pareto_transformer_resolved_to_astn_sealed_target.js"
 import * as t_to_pareto_transformer_resolved_to_serialized_paragraph from "./pareto_transformer_resolved_to_serialized_paragraph.js"
 
@@ -42,11 +41,14 @@ export const Schema: declarations.Schema = ($) => sh.module(
     p_.literal.dictionary({}),
     p_.literal.dictionary({
         "resolved": sh.schema_package(
-            t_to_pareto_schema_resolved.Schema(
+            t_to_pareto_schema.Schema(
                 $,
+                {
+                    'type': ['resolved', null]
+                }
             ),
             p_.literal.dictionary({
-                "sealed target": t_to_pareto_transformer_resolved_to_astn_sealed_target.Schema($),
+                "astn sealed target": t_to_pareto_transformer_resolved_to_astn_sealed_target.Schema($),
                 "serialized paragraph": t_to_pareto_transformer_resolved_to_serialized_paragraph.Schema($),
             }),
             p_.literal.dictionary({}),
@@ -57,8 +59,11 @@ export const Schema: declarations.Schema = ($) => sh.module(
             p_.literal.dictionary({})
         ),
         "unresolved": sh.schema_package(
-            t_to_pareto_schema_unresolved.Schema(
+            t_to_pareto_schema.Schema(
                 $,
+                {
+                    'type': ['unresolved', null]
+                }
             ),
             p_.literal.dictionary({}),
             p_.literal.dictionary({}),

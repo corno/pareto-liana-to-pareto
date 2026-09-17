@@ -11,13 +11,19 @@ namespace s_parameters {
     export type Value_Reference_temp = {
         'type': "cyclic" | "acyclic"
     }
+    export type Parameters = {
+        'type':
+        | ['resolved', null]
+        | ['unresolved', null]
+    }
 }
 
 namespace declarations {
 
-    export type Schema = p_.Transformer<
+    export type Schema = p_.Transformer_With_Parameter<
         s_in.Schema,
-        s_out.Schema
+        s_out.Schema,
+        s_parameters.Parameters
     >
 
     export type Type_Reference = p_.Transformer<
@@ -30,9 +36,10 @@ namespace declarations {
         s_out.Value
     >
 
-    export type Value = p_.Transformer<
+    export type Value = p_.Transformer_With_Parameter<
         s_in.Value,
-        s_out.Value
+        s_out.Value,
+        s_parameters.Parameters
     >
 
     export type Value_Results = p_.Transformer_With_Parameter<
@@ -45,7 +52,7 @@ namespace declarations {
 
     export type Value_Path = p_.Transformer<
         s_in.Value_Path,
-        s_out.Value.reference['sub selection']
+        s_out.Value.reference.subselection
     >
 
 }
@@ -53,7 +60,7 @@ namespace declarations {
 //dependencies
 import * as sh from "pareto/modules/pareto_new/schemas/schema/shorthands/target"
 
-export const Schema: declarations.Schema = ($) => {
+export const Schema: declarations.Schema = ($, $p) => {
 
     return sh.schema(
         p_.literal.dictionary({
@@ -94,6 +101,7 @@ export const Schema: declarations.Schema = ($) => {
         p_.from.dictionary($.modules).map(
             ($) => sh.type(Value(
                 $['root value'],
+                $p,
             ))),
     )
 }
@@ -106,14 +114,14 @@ export const Type_Reference: declarations.Type_Reference = ($) => p_.from.state(
                     'type': "FOOO",
                 }],
                 'cyclic': true,
-                'sub selection': p_.literal.list([])
+                'subselection': p_.literal.list([])
             }))
             case 'external': return p_.option($, ($): s_out.Value.reference => ({
                 'type location': ['this schema', {
                     'type': "FOOO",
                 }],
                 'cyclic': true,
-                'sub selection': p_.literal.list([])
+                'subselection': p_.literal.list([])
             }))
             default: return p_.exhaustive($[0])
         }
@@ -150,7 +158,7 @@ export const Simple_Type: declarations.Simple_Type = ($) => {
     )
 }
 
-export const Value: declarations.Value = ($) => {
+export const Value: declarations.Value = ($, $p) => {
 
     return p_.from.state($).decide(
         ($) => {
@@ -177,14 +185,18 @@ export const Value: declarations.Value = ($) => {
                         ),
                     }
                 ))
-                case 'dictionary': return p_.option($, ($) => sh.v.dictionary(Value(
-                    $.value,
+                case 'dictionary': return p_.option($, ($) => sh.v.dictionary(
+                    Value(
+                        $.value,
+                        $p,
+                    )
                 ))
-                )
                 case 'group': return p_.option($, ($) => sh.v.group(p_.from.dictionary($).map(
                     ($, id) => Value(
                         $.value,
-                    ))))
+                        $p,
+                    )
+                )))
                 case 'list': return p_.option($, ($) => {
                     const list = $
 
@@ -201,11 +213,13 @@ export const Value: declarations.Value = ($) => {
                                                 )),
                                             "l item": Value(
                                                 list.value,
+                                                $p,
                                             )
                                         })
                                     ),
                                     () => Value(
                                         list.value,
+                                        $p,
                                     )
                                 )),
                         }
@@ -220,49 +234,68 @@ export const Value: declarations.Value = ($) => {
                             default: return p_.exhaustive($[0])
                         }
                     }))
-                case 'optional': return p_.option($, ($) => sh.v.optional(Value(
-                    $,
-                )))
+                case 'optional': return p_.option($, ($) => sh.v.optional(
+                    Value(
+                        $,
+                        $p,
+                    )
+                ))
                 case 'reference': return p_.option($, ($) => {
                     const referent = $.referent
 
                     return p_.from.state($.type).decide(
                         ($) => {
                             switch ($[0]) {
-                                case 'derived': return p_.option($, ($) => Value_Reference(referent))
+                                case 'derived': return p_.option($, ($) => p_.from.state($p.type).decide(
+                                    ($) => {
+                                        switch ($[0]) {
+                                            case 'resolved': return p_.option($, ($) => Value_Reference(referent))
+                                            case 'unresolved': return p_.option($, ($) => sh.v.nothing())
+                                            default: return p_.exhaustive($[0])
+                                        }
+                                    }
+                                ))
                                 case 'selected': return p_.option($, ($) => {
                                     const $v_selected = $
-                                    return Value_Results(
-                                        $v_selected.results,
-                                        {
-                                            'base type': sh.v.group(
-                                                p_.literal.optionals_dictionary<s_out.Value>({
-                                                    "l entry": p_.literal.set(p_variables(() => {
-                                                        return p_.from.state($v_selected.dependency).decide(
-                                                            ($) => {
-                                                                switch ($[0]) {
+                                    return p_.from.state($p.type).decide(
+                                        ($) => {
+                                            switch ($[0]) {
+                                                case 'resolved': return p_.option($, ($) => Value_Results(
+                                                    $v_selected.results,
+                                                    {
+                                                        'base type': sh.v.group(
+                                                            p_.literal.optionals_dictionary<s_out.Value>({
+                                                                "l entry": p_.literal.set(p_variables(() => {
+                                                                    return p_.from.state($v_selected.dependency).decide(
+                                                                        ($) => {
+                                                                            switch ($[0]) {
 
-                                                                    case 'acyclic': return p_.option($, ($) => Value_Reference_temp(referent, { 'type': 'acyclic' }))
-                                                                    case 'cyclic': return p_.option($, ($) => Value_Reference_temp(referent, { 'type': 'cyclic' }))
-                                                                    case 'stack': return p_.option($, ($) => Value_Reference_temp(referent, { 'type': 'acyclic' }))
-                                                                    default: return p_.exhaustive($[0])
-                                                                }
+                                                                                case 'acyclic': return p_.option($, ($) => Value_Reference_temp(referent, { 'type': 'acyclic' }))
+                                                                                case 'cyclic': return p_.option($, ($) => Value_Reference_temp(referent, { 'type': 'cyclic' }))
+                                                                                case 'stack': return p_.option($, ($) => Value_Reference_temp(referent, { 'type': 'acyclic' }))
+                                                                                default: return p_.exhaustive($[0])
+                                                                            }
+                                                                        })
+                                                                })),
+                                                                "l id": p_.literal.set(
+                                                                    sh.v.text()),
+                                                                "l up steps": p_.from.state($v_selected.dependency).decide(
+                                                                    ($) => {
+                                                                        switch ($[0]) {
+                                                                            case 'acyclic': return p_.option($, ($) => p_.literal.not_set())
+                                                                            case 'cyclic': return p_.option($, ($) => p_.literal.not_set())
+                                                                            case 'stack': return p_.option($, ($) => p_.literal.set(
+                                                                                sh.v.natural()))
+                                                                            default: return p_.exhaustive($[0])
+                                                                        }
+                                                                    })
                                                             })
-                                                    })),
-                                                    "l id": p_.literal.set(
-                                                        sh.v.text()),
-                                                    "l up steps": p_.from.state($v_selected.dependency).decide(
-                                                        ($) => {
-                                                            switch ($[0]) {
-                                                                case 'acyclic': return p_.option($, ($) => p_.literal.not_set())
-                                                                case 'cyclic': return p_.option($, ($) => p_.literal.not_set())
-                                                                case 'stack': return p_.option($, ($) => p_.literal.set(
-                                                                    sh.v.natural()))
-                                                                default: return p_.exhaustive($[0])
-                                                            }
-                                                        })
-                                                })
-                                            ),
+                                                        ),
+                                                    }
+                                                ))
+                                                case 'unresolved': return p_.option($, ($) => sh.v.text())
+                                                default: return p_.exhaustive($[0])
+                                            }
                                         }
                                     )
                                 })
@@ -275,6 +308,7 @@ export const Value: declarations.Value = ($) => {
                     const i = sh.v.state(p_.from.dictionary($.options).map(
                         ($, id) => Value(
                             $.value,
+                            $p,
                         )))
                     return Value_Results(
                         results,

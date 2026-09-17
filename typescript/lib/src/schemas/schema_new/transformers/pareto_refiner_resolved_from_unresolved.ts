@@ -16,7 +16,7 @@ import * as sh from "pareto/modules/pareto_new/schemas/refiner/shorthands/target
 export const Schema: declarations.Schema = ($) => sh.root(
     true,
     sh.schema_reference.sr.sibling("unresolved"),
-    p_.literal.set(sh.schema_reference.sr.external("liana-core", "resolved_document_deserialization", "resolving")),
+    p_.literal.set(sh.schema_reference.sr.external("liana-core", "resolved document deserialization", "resolving")),
     p_.literal.not_set(),
     p_.literal.dictionary({}),
     p_.from.dictionary($.modules).map(

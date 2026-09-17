@@ -15,9 +15,9 @@ import * as sh from "pareto/modules/pareto_new/schemas/refiner/shorthands/target
 
 export const Schema: declarations.Schema = ($) => sh.root(
     false,
-    sh.schema_reference.sr.external("astn-core", "deserialization", "list_of_characters"),
-    p_.literal.set(sh.schema_reference.sr.external("liana-core", "resolved_document_deserialization", "resolved_document_deserialization")),
-    p_.literal.set(sh.schema_reference.sr.external("liana-core", "resolved_document_deserialization", "resolved_document_deserialization")),
+    sh.schema_reference.sr.external("astn-core", "deserialization", "list of characters"),
+    p_.literal.set(sh.schema_reference.sr.external("liana-core", "resolved document deserialization", "resolved document deserialization")),
+    p_.literal.set(sh.schema_reference.sr.external("liana-core", "resolved document deserialization", "resolved document deserialization")),
     p_.literal.dictionary({
         "from unresolved": sh.dependency.sibling("unresolved"),
         "unresolved from list of characters": sh.dependency.cousin(

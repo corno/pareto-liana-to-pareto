@@ -21,7 +21,7 @@ import * as sh from "pareto/modules/pareto_new/schemas/refiner/shorthands/target
 export const Schema: declarations.Schema = ($) => sh.root(
     true,
     sh.schema_reference.sr.external("astn-core", "deserialization", "parse tree"),
-    p_.literal.set(sh.schema_reference.sr.external("liana-core", "value_unmarshalling", "unmarshalling")),
+    p_.literal.set(sh.schema_reference.sr.external("liana-core", "value unmarshalling", "unmarshalling")),
     p_.literal.not_set(),
     p_.literal.dictionary({}),
     p_.from.dictionary($.modules).map(
